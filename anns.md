@@ -68,4 +68,5 @@ Good part, since we are starting with high-dimension vectors (instead of strings
 IDEA: Can we produce random hyperplanes that deconstruct the space well. This would be more than just hyperplanes that separate \R_n well as the data vectors won't be evenly distributed. 
 
 
-
+### Hierachical navigable Small world (HNSW)
+See [HNSW notes](./hnsw.md)
