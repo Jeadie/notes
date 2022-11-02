@@ -7,7 +7,7 @@
 - Complexities and trade-offs that various approaches make/consider:
   - Accuracy
   - Time complexity (latency with respect to scaling)
-  - Space complexity (
+  - Space complexity
   - Distributed search. If an approach cannot handle being performed across nodes (because of time/space complexity, algorithmic constraints), then it can only be used on problems where one machine is viable. An approach be inappropriate because of ircumstances where the dataset cannot fit on one node, or must be distributed (e.g. for reliability reasons). Further, since in practice data often grows over time in a system, approaches constrained in this way may not be adopted even when the dataset is still small.
   - Batch vs real-time: Updates to indexes and vector metadata have varying costs, per approach. Whether the data is fixed, or will be updated, can effect the approach.
 
@@ -24,15 +24,15 @@ In this section, we enumerate many approaches in the field. If they're of intere
 - Approximate distance metrics between vectors by clustering on subvectors (i.e. a subset of dimensions of the original vectors).
   1. Construct subvectors. 
   2. Across each subspace, generate either
-    1  Subspace specific centroids (e.g k means clustering)
-    2. Encoding scheme, i.e. a function f : \R_{n/m} -> \Z_k. m == number of sub vectors/subspaces. k == number of codewords. In this way, 1. can be seen as a specific encoding scheme where each clustered centroid is a code word of the encoding scheme. 
+     1. Subspace specific centroids (e.g k means clustering)
+     2. Encoding scheme, i.e. a function f : \R_{n/m} -> \Z_k. m == number of sub vectors/subspaces. k == number of codewords. In this way, 1. can be seen as a specific encoding scheme where each clustered centroid is a code word of the encoding scheme. 
     3. Over each subspace, precompute distance matrix between each codeword/centroid (will be dimension (n/m) x (n/m)).
 
  - To search: 
    1. Split across subspaces
    2. For each subvector, encode appropriately (i.e. as above)
    3. Do exact KNN across PQ encoded vectors. 
-    - Each distance computation is just (n/m) look up operations in the distance table.
+      - Each distance computation is just (n/m) look up operations in the distance table.
 
  - Can get an approximate reconstruction of original vector from PQ code. 
 
@@ -54,14 +54,14 @@ In this section, we enumerate many approaches in the field. If they're of intere
 
 #### Random Projections for LSH
 1. Reduce high-dimension vectors into low dimension binary vectors
-  1. Compute random hyperplane (equivalent to random vector to act as hyperplane's norm)..
-  2. Dot product of hyperplane's perpendicular vector and data vector. If n.v > 0, +ve bit.
-  3. Dimension of binary vector == no. of hyperplanes used. Good part --> parallelism.
-  4. These binary vectors act as buckets.
+   1. Compute random hyperplane (equivalent to random vector to act as hyperplane's norm)..
+   2. Dot product of hyperplane's perpendicular vector and data vector. If n.v > 0, +ve bit.
+   3. Dimension of binary vector == no. of hyperplanes used. Good part --> parallelism.
+   4. These binary vectors act as buckets.
 2. Compute similarity via hamming distance.
-  1. Compute binary vector for search query, q.
-  2. Find binary vector, b with smallest hamming distance (sum of xnor boolean operation across bits).
-  3. Lookup all search results with binary representation, b.
+   1. Compute binary vector for search query, q.
+   2. Find binary vector, b with smallest hamming distance (sum of xnor boolean operation across bits).
+   3. Lookup all search results with binary representation, b.
   
 Problem is, we can't distinguish within a bucket (i.e. data vectors with matching binary vectors) without extra compute.
 Good part, since we are starting with high-dimension vectors (instead of strings, as above), it can be the backend behind embedding models. 
