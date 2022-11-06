@@ -16,16 +16,17 @@ ANN Algorithms, ~3 categories:
  - Data structure
  - Fast search and insert
  - Complexity:
-     Operation: Average    | Worst 
-   --------------------------------
-   - Insertion: O(log(n))  | O(n)
-   - Deletion:  O(log(n))  | O(n)
-   - Indexing:  O(log(n))  | O(n)
-   - Search:    O(log(n))  | O(n)
 
-   - Finding element by position is O(n)
-     - However, if each node stores length to next node, we can get back to O(log(n))
-   - Space: Average O(n)
+| First Operation  | Average | Worst |
+| ------------- | ------------- | ------------- |
+| Insertion | O(log(n))  | O(n)
+| Deletion | O(log(n))  | O(n)
+| Indexing | O(log(n))  | O(n)
+| Search |   O(log(n))  | O(n)
+
+- Finding element by position is O(n)
+  - However, if each node stores length to next node, we can get back to O(log(n)
+- Space: Average O(n)
  
 ### Construction
   - Start with a standard, sorted linked list.
@@ -57,12 +58,10 @@ ANN Algorithms, ~3 categories:
 
 #### Search complexity
  - Number of skip lists ~ log_(1/p)(n) 
- - 
 
 ## Navigable Small World (NSW) Graphs
  - Proximity graph with small + large distance links.
  - Greedily find nodes, starting at an entry node, of closer metric distance.
-  
  - Problem is that this method is not good for >> nodes (10^4-5 nodes), increase probability of just a local minima.
  - Could vary the trade-off in the average degree of nodes, with search efficiency.
  - Or start search on higher degree vertices.
@@ -72,7 +71,6 @@ ANN Algorithms, ~3 categories:
  - Entry layer of skip list contains large edges. Subsequent layers have progressive shorter edges.
  - Links with large edges generally have the largest degree (TODO: why is this true)
  - To search, perform subsequent NSW graph searches. WHen at a local minimum, go to lower layer.
- - 
 
 ### HNSW - Construction
  - Vector insertion is done similary to skip list. 
@@ -86,7 +84,6 @@ ANN Algorithms, ~3 categories:
      - nearest neighbour selection leads to clustering, cannot cross cluster boundaries.
    - Connect q to each neighbour
    - Ensure degree of neighbours does not exceed maximum allowed. If so must perform SelectNeighbours again for that neighbour.
-   -  
 
  - M_{max0} = M leads to performance degradation (??). 
  - M linear in memory consumption
@@ -94,5 +91,3 @@ ANN Algorithms, ~3 categories:
 
 ### Scaling/Performance/Usage
  - High memory usage, stores vectors and relations in memory. Requires memory heavy hardware. If not much throughput (i.e. low traffic, or single tenant), CPU oversupply == expensive. 
- - 
-
