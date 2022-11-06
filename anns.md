@@ -40,6 +40,10 @@ In this section, we enumerate many approaches in the field. If they're of intere
 - Avoid exhausitive similarity search across dataset by considering candidate pairs, i.e. potential similar values. 
 - Use precomputation and efficient lookup to reduce the search space prior to similarity calcuations.
 - For example, use several hashing functions (that attempt to maximise hash collisions, not minimise). For a search candidate, compute hashes, and retrieve candidates that match at least one (or could be k of n) hash value (i.e. k of n hashing functions put it in the same bucket).
+- Hash functions that preserve the total ordering of the domain's metric space; i.e.
+```math
+  \forall x,y,z \in M, d(x,y) < d(y,z) \to \|f(x) - f(y)\| < \|f(y) - f(z)\|
+```
 
 #### LSH: Dense subvector hashing from a substring vocab
  1. Produce an ordered list of overlapping substrings of the original query string, q. Likewise, do the same for all searchable strings in the document, producing a codebook, or vocab. Define an ordering on this vocab.
@@ -62,11 +66,43 @@ In this section, we enumerate many approaches in the field. If they're of intere
    1. Compute binary vector for search query, q.
    2. Find binary vector, b with smallest hamming distance (sum of xnor boolean operation across bits).
    3. Lookup all search results with binary representation, b.
-  
+
+Important theoretical note:
+```math
+ P(h(u) != h(v)) = \theta(u, v) /\ \pi
+```
+That is, a random plane divides two vectors linearly proportional to the angle between the two vectors (see cosine similarity).
+
 Problem is, we can't distinguish within a bucket (i.e. data vectors with matching binary vectors) without extra compute.
 Good part, since we are starting with high-dimension vectors (instead of strings, as above), it can be the backend behind embedding models. 
 IDEA: Can we produce random hyperplanes that deconstruct the space well. This would be more than just hyperplanes that separate \R_n well as the data vectors won't be evenly distributed. 
 
+### Inverted File Index (IVF)
+- Mapping of file content (e.g. word, phrase, sentence) to locations in documents. Often, also a measure of term frequency (within a document) is stored. Could use relevance score.
+1. Compute term frequency per document.
+2. Store document, relevance per term (on-disk, potentially compressed)
+
+O(n) time and space complexity.
+
+#### Improvements: 
+1. Partially invert sub-documents, then merge.
+2. Compute term, document, relevance to temp disk. Sort. Read in-order (of term), write to inverted format.
+
 
 ### Hierachical navigable Small world (HNSW)
 See [HNSW notes](./hnsw.md)
+
+
+### Deep Neural Hashing
+- Use ML to convert input vectors (any modality, in fact) to compact binary-coded representations.
+- Two stage search:
+  1. Hamming distance between binary codes
+  2. Reranking/subset search within the returned results from 1. (given that hamming distance will/could produce many results of equal distance).
+
+Binary coded represenations (at least by themselves) present a large storage/memory saving.
+ - Consider a 768 dimensional vector, float precision == 3072 bytes
+ - Using a 768 binary representation, 96 bytes
+
+Also, hamming distance computation is CPU efficient.
+ Large scale image search
+ 
