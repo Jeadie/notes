@@ -79,6 +79,3 @@ Motivation for self attention:
  - Provide positional information to the attention layers (since connections attend to all inputs, no implicit position information is propagated naturally in attention models).
  - Create a position encoding (in papaer, trigonometric functions of position index)
  - Use positional encoding +  input embedding
-
-
-
