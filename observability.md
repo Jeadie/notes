@@ -27,7 +27,7 @@ Instrumentation is how to get, process and store telemetery data.
     - Exporters: Send data to observability backend.
   Two forms:
     - Agent: Sits adjacent to application (e,g, on node, sidecar, container on deployment/statefulset)
-    - Gateway: Standalone service 
+    - Gateway: Standalone service ![](https://github.com/open-telemetry/opentelemetry-collector-contrib/raw/main/examples/demo/demo-arch.png)
 
   Instrumentation SDKs often have backend exporters (i.e. direct from application to observability backend). Why use a collector?
     - Offload processing out of application resources

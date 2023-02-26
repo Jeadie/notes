@@ -43,3 +43,21 @@ How/when is filtering applied:
 - q=query vector
 - k= number of neighbours to return
 
+
+### HNSW + Lucene Segments
+ - Lucene (powering Opensearch) uses segments and performs indexing search on a LSM (Log Structure merge tree) manner.
+ - Each segment contains its own HNSW graph. Merging Segments:
+   - When they're LSMs, easy and efficient
+   - When they're HNSWs, slower
+
+- At search time, one HNSW search per segment.
+
+For search performance:
+ 1. One segment per shard
+ 2. Warm up indices: `GET  GET /_plugins/_knn/warmup/index1,...`
+ 3. Avoid reading stored fields (if you only need IDs and scores)
+
+ ### Building / Editing opensearch KNN engines
+   1. Lucene is only JVM engine
+      1. FAISS + NMSLIB: Require JNI connectors
+   2. 
