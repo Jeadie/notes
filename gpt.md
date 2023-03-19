@@ -12,6 +12,7 @@
 
 ## GPT-2: Language Models are Unsupervised Multitask Learners
 - Standard language modelling & use of transformers (like from Attention is All you Need).
+
 - A general system should be able to handle many tasks. Condition output on input and task. I.e. instead of $p(output|input)$ (perhaps per-task), consider $p(output|input, task)$.
 
 ## GPT-3: Language Models are Few-Shot Learners
