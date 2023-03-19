@@ -16,7 +16,3 @@
 ## Papers
  - [Neural Machine Translation](https://jeadie.github.io/notes/neural-machine-translation)
  - [Attention is all you need](https://jeadie.github.io/notes/attention-is-all-you-need)
-
-{::options parse_block_html="true" /}
-<script defer data-domain="jeadie.github.io" src="https://analytics.liarsdi.cc/js/script.js"></script>
-{::options parse_block_html="false" /}
