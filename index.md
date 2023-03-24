@@ -1,3 +1,4 @@
+# Notes
 ## Platform
  - [Observability](https://jeadie.github.io/notes/observability): Fundamentals of Observability and OpenTelemetry
 
