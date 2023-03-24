@@ -1,8 +1,5 @@
-# notes
-
 ## Platform
  - [Observability](https://jeadie.github.io/notes/observability): Fundamentals of Observability and OpenTelemetry
-
 
 ## Search
 - [ANN](https://jeadie.github.io/notes/anns): Approximate nearest neighbours
@@ -16,5 +13,3 @@
 ## Papers
  - [Neural Machine Translation](https://jeadie.github.io/notes/neural-machine-translation)
  - [Attention is all you need](https://jeadie.github.io/notes/attention-is-all-you-need)
- 
-{% include analytics.html %}
